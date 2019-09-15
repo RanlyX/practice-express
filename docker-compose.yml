@@ -1,0 +1,16 @@
+# Determine version of Dockerfile
+version: '2'
+
+# Build services
+services:
+  web:  # Server by node
+    build: # Build image from a Dockerfile
+      context: . # Dockerfile's postision
+  proxy: # A proxy server by nginx
+    image: nginx # Select build image
+    volumes: # Set shared directory between container and host
+      - $HOME/coding/express/nginx:/etc/nginx
+    ports: # Port forwarding
+     - "80:5000"
+    links: # Link other containers
+      - web
